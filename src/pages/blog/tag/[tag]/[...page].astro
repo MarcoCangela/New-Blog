@@ -4,8 +4,14 @@ import HorizontalCard from "@components/HorizontalCard.astro";
 import { getCollection } from "astro:content";
 import createSlug from "../../../../lib/createSlug";
 
+
+
+
+
 export async function getStaticPaths({ paginate }) {
-  const all_posts = await getCollection("blog");
+  const all_posts_from_medium = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@marcogarujo')
+  const all_posts_list = await all_posts_from_medium.json();
+  const all_posts = all_posts_list.items;
   const all_tags = all_posts.flatMap((post) => {
     return post.data.tags || [];
   });
@@ -23,46 +29,6 @@ export async function getStaticPaths({ paginate }) {
 
 const { page } = Astro.props;
 const params = Astro.params;
----
-<!-- let mediumPosts: any[] = [];
-
-async function fetchMediumPosts() {
-  const response = await fetch(
-    'https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@marcogarujo'
-  );
-  const data = await response.json();
-
-  if (data.status === 'ok') {
-    mediumPosts = data.items.map((item: { title: any; pubDate: any; link: any; author: any; thumbnail: any; }) => ({
-      title: item.title,
-      date: item.pubDate,
-      link: item.link,
-      author: item.author,
-      thumbnail: item.thumbnail,
-    }));
-  }
-}
-await fetchMediumPosts();
----
-
-<PageLayout>
-  <PageMeta title={`Blog | ${SITE_TITLE}`} slot="meta" />
-  <section slot="main">
-    <ul id="listOfPosts">
-      {mediumPosts.map((post) => (
-        <li>
-          <a href={post.link} target="_blank" rel="noopener noreferrer">{post.title}</a>
-          <div style="display: flex; align-items: center;">
-            <div style="margin-right: 8px; font-style: italic;">
-              {new Date(post.date).toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' })}
-            </div>
-          </div>
-          {post.thumbnail && <img src={post.thumbnail} alt={post.title} />}
-        </li>
-      ))}
-    </ul>
-  </section>
-</PageLayout> -->
 
 <BaseLayout title={"Blog - " + params.tag} sideBarActiveItemID="blog">
   <div class="mb-5">
