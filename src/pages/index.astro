@@ -6,8 +6,12 @@ import createSlug from "../lib/createSlug"
 
 const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
+const difference = new Date().getFullYear() - 2022;
+console.log(difference);
+
 const last_posts = posts.slice(0, 3);
 ---
+
 
 <BaseLayout sideBarActiveItemID="home">
   <div class="pb-12 mt-5">
@@ -16,7 +20,7 @@ const last_posts = posts.slice(0, 3);
     <div class="text-3xl py-3 font-bold">Software Quality Assurance Engineer</div>
     <div class="py-2">
       <text class="text-lg">
-        I'm a Software Quality Engineer with a passion for software development and quality assurance. My expertise lies in
+        I'm a Software Quality Engineer with {new Date().getFullYear() - 2022} years of experience and a passion for software development and quality assurance. My expertise lies in
         ensuring the quality and reliability of software applications. With a deep understanding of software development
         methodologies, I strive to deliver high-quality products that meet the needs of users and stakeholders.
       </text>
