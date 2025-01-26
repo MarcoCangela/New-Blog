@@ -6,9 +6,6 @@ import createSlug from "../lib/createSlug"
 
 const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-const difference = new Date().getFullYear() - 2022;
-console.log(difference);
-
 const last_posts = posts.slice(0, 3);
 ---
 
@@ -77,13 +74,11 @@ const last_posts = posts.slice(0, 3);
     ))
   }
 
-<br/>
-<br/>
-<div align="center">
+<div style="display: flex; align-items: center; padding: 30px; padding-bottom: 0px; justify-content: center;">
   <img src="https://media.giphy.com/media/M9gbBd9nbDrOTu1Mqx/giphy.gif" width="150"/>
 </div>
 
-<br/>
+
 
 </BaseLayout>
 
